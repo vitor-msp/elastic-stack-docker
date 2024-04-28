@@ -4,5 +4,6 @@ network.host: 0.0.0.0
 discovery.seed_hosts: ["127.0.0.1", "elasticsearch-1", "elasticsearch-2"]
 cluster.initial_master_nodes: ["node-0", "node-1", "node-2"]
 xpack.license.self_generated.type: trial
-xpack.security.enabled: false
+xpack.security.enabled: true
+xpack.security.authc.api_key.enabled: true
 xpack.monitoring.collection.enabled: true

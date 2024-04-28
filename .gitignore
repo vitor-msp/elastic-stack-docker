@@ -1,3 +1,4 @@
 filebeat
 extensions
 examples
+.env
