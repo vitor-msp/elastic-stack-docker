@@ -1,0 +1,22 @@
+apm-server:
+  host: "0.0.0.0:8200"
+  rum:
+    enabled: true
+  kibana:
+    enabled: true
+    host: kibana:5601
+    username: "elastic"
+    password: "changeme"
+
+setup:
+  kibana:
+    host: kibana:5601
+  template:
+    settings:
+      index:
+        number_of_replicas: 0
+
+output.elasticsearch:
+  hosts: ["elasticsearch-0:9200", "elasticsearch-1:9200", "elasticsearch-2:9200"]
+  username: "elastic"
+  password: "changeme"

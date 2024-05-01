@@ -57,7 +57,9 @@ services:
     networks:
       - elk
     depends_on:
+      - elasticsearch-0
       - elasticsearch-1
+      - elasticsearch-2
 
   kibana:
     container_name: kibana
@@ -76,6 +78,25 @@ services:
       - elasticsearch-0
       - elasticsearch-1
       - elasticsearch-2
+
+  apm-server:
+    container_name: apm-server
+    build:
+      context: apm-server/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    restart: on-failure
+    volumes:
+      - ./apm-server/config/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro
+    ports:
+      - "8200:8200"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch-0
+      - elasticsearch-1
+      - elasticsearch-2
+      - kibana
 
 networks:
   elk:
