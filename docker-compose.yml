@@ -6,7 +6,7 @@ services:
     build:
       context: elasticsearch/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ELK_VERSION: ${ELK_VERSION}
     restart: on-failure
     volumes:
       - ./elasticsearch/config/elasticsearch-0.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
@@ -15,7 +15,7 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx512m -Xms512m"
-      ELASTIC_PASSWORD: $ELASTIC_PASSWORD
+      ELASTIC_PASSWORD: ${ES_PASSWORD}
     networks:
       - elk
 
@@ -42,7 +42,7 @@ services:
     build:
       context: logstash/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ELK_VERSION: ${ELK_VERSION}
     restart: on-failure
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
@@ -66,12 +66,13 @@ services:
     build:
       context: kibana/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ELK_VERSION: ${ELK_VERSION}
     restart: on-failure
     volumes:
       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
       - "5601:5601"
+    env_file: .env
     networks:
       - elk
     depends_on:
@@ -84,12 +85,13 @@ services:
     build:
       context: apm-server/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ELK_VERSION: ${ELK_VERSION}
     restart: on-failure
     volumes:
       - ./apm-server/config/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro
     ports:
       - "8200:8200"
+    env_file: .env
     networks:
       - elk
     depends_on:

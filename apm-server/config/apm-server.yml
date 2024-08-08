@@ -5,8 +5,8 @@ apm-server:
   kibana:
     enabled: true
     host: kibana:5601
-    username: "elastic"
-    password: "changeme"
+    username: "${ES_USERNAME}"
+    password: "${ES_PASSWORD}"
 
 setup:
   kibana:
@@ -17,6 +17,6 @@ setup:
         number_of_replicas: 0
 
 output.elasticsearch:
-  hosts: ["elasticsearch-0:9200", "elasticsearch-1:9200", "elasticsearch-2:9200"]
-  username: "elastic"
-  password: "changeme"
+  hosts: ${ES_HOSTS}
+  username: "${ES_USERNAME}"
+  password: "${ES_PASSWORD}"
